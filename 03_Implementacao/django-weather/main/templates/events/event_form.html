@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}WSM Create/Update Event{% endblock %}
+
+{% block content %}
+<form method="post">{% csrf_token %}
+    <div class="max-w-5xl mx-auto">
+        <div class="flex flex-col items-center lg:flex-row">
+        <div class="w-full mt-8 lg:w-1/2 mx-auto">
+            <div class="bg-gray-700 relative z-10 h-auto p-8 py-10 overflow-hidden rounded-lg shadow-2xl px-7">
+                {{ form.as_p }}
+                <button type="submit" class="cursor-pointer focus:ring focus:ring-indigo-400 focus:outline-none w-full px-3 py-4 font-medium text-white border border-transparent bg-gradient-to-r from-green-400 to-blue-400 rounded-lg">Confirm</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

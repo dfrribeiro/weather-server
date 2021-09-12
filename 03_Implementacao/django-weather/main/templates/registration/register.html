@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}WSM Register{% endblock %}
+{% block content %}
+<form id="register" class="w-full px-8 py-16" action="#" method="post" name="register">
+	{% csrf_token %}
+	<div class="max-w-5xl mx-auto">
+		<div class="flex flex-col items-center lg:flex-row">
+			<div class="w-full mt-8 lg:w-1/2 mx-auto">
+				<div class="bg-gray-700 relative z-10 h-auto p-8 py-10 overflow-hidden rounded-lg shadow-2xl px-7">
+					<h1 class="text-2xl mb-4">Register your account</h1>
+					<!--<input type="text" name="username" class="text-gray-800 block w-full px-4 py-3 mb-4 border border-transparent border-gray-200 rounded-lg focus:ring focus:ring-indigo-400 focus:outline-none" placeholder="Username">
+						<input type="email" name="email" class="text-gray-800 block w-full px-4 py-3 mb-4 border border-transparent border-gray-200 rounded-lg focus:ring focus:ring-indigo-400 focus:outline-none" placeholder="E-mail">
+						<div class="flex flex-row items-center justify-between">
+						    <input type="password" name="password1" autocomplete="off" class="js-password text-gray-800 block w-full px-4 py-3 border border-gray-200 rounded-l-lg focus:ring focus:ring-indigo-400 focus:outline-none" placeholder="Password">
+						    <button type="button" class="w-auto px-3 py-3 border border-transparent font-medium text-white bg-gradient-to-r from-green-400 to-blue-400 rounded-r-lg" onclick="togglePasswordVisibility(this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+						    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+						    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></button>
+						</div>
+						<input type="password" name="password2" autocomplete="off" class="js-password text-gray-800 block w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring focus:ring-indigo-400 focus:outline-none my-4" placeholder="Repeat Password">-->
+					{{ form.username }}
+					{{ form.email }}
+					<div class="flex flex-row items-start justify-between">
+						{{ form.password1 }}
+						<button type="button" class="cursor-pointer focus:ring focus:ring-indigo-400 focus:outline-none w-auto px-3 py-3 border border-transparent font-medium text-white bg-gradient-to-r from-green-400 to-blue-400 rounded-r-lg" onclick="togglePasswordVisibility(this)">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+							</svg>
+						</button>
+					</div>
+					{{ form.password2 }}
+					{% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                        {% endfor %}
+					{% endif %}
+					<input type="submit" value="Sign up" class="cursor-pointer focus:ring focus:ring-indigo-400 focus:outline-none w-full px-3 py-4 font-medium text-white border border-transparent bg-gradient-to-r from-green-400 to-blue-400 rounded-lg">
+					<p class="w-full mt-4 text-center">Existing user? <a href="{% url 'login' %}" class="text-blue-300 underline transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">Sign in here</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<script>
+	function togglePasswordVisibility(elem) {
+	    const password = document.querySelector("#id_password1");
+	
+	    if (password.type === "password") {
+	    password.type = "text";
+	    elem.innerHTML =
+	        '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /><\/svg>';
+	    } else {
+	    password.type = "password";
+	    elem.innerHTML =
+	        '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /><\/svg>';
+	    }
+	
+	    password.focus();
+	}
+</script>
+{% endblock %}

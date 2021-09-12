@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}Weather Service{% endblock %}</title>
+		<meta name="author" content="Diogo Ribeiro">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="{% static 'css/tailwind-output.min.css' %}">
+		{% block external %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+		<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<!--<link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">-->
+		{% endblock %}
+		{% if form %}
+		{{ form.media }}
+		{% endif %}
+		<link rel="apple-touch-icon" sizes="180x180" href="{% static 'icon/apple-touch-icon.png' %}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32x32.png' %}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{% static 'icon/favicon-16x16.png' %}">
+		<link rel="manifest" href="{% static 'icon/site.webmanifest' %}">
+		<link rel="mask-icon" href="{% static 'icon/safari-pinned-tab.svg' %}" color="#00aba9">
+		<link rel="shortcut icon" href="{% static 'icon/favicon.ico' %}">
+		<meta name="msapplication-TileColor" content="#00aba9">
+		<meta name="msapplication-config" content="{% static 'icon/browserconfig.xml' %}">
+		<meta name="theme-color" content="#00ffff">
+	</head>
+	<body style="font-family: 'Comfortaa', sans-serif" class="antialiased bg-fixed bg-gradient-to-b from-gray-700 to-gray-800 text-gray-200">
+		<style type="text/css">
+			input:-webkit-autofill::first-line {
+			font-family: 'Comfortaa', sans-serif !important;
+			font-size: 1rem;
+			line-height: 1.5rem;
+			}
+		</style>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+		{# HEADER #}
+		{% include 'header.html' %}
+		{# CONTENT #}
+		<main id="content" role="main">
+			{% block content %} {% endblock %}
+		</main>
+		{# FOOTER #}
+		{% include 'footer.html' %}
+	</body>
+</html>

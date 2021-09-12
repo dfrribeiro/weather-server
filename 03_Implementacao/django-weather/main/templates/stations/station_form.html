@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}WSM Create/Update Station{% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="max-w-5xl mx-auto">
+		<div class="flex flex-col items-center lg:flex-row">
+			<div class="w-full mt-8 lg:w-1/2 mx-auto">
+				<div class="bg-gray-700 relative z-10 h-auto p-8 py-10 overflow-hidden rounded-lg shadow-2xl px-7">
+					{{ form.as_p }}
+					<button type="submit" class="cursor-pointer focus:ring focus:ring-indigo-400 focus:outline-none w-full px-3 py-4 font-medium text-white border border-transparent bg-gradient-to-r from-green-400 to-blue-400 rounded-lg">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<script>
+	function readUpload(input) {
+		let url = window.URL.createObjectURL(input.files[0]);
+		$('#current_photo').css('background-image', `url(${url})`);
+	}
+
+	$(document).ready( function() {
+	    $("#id_location_div_map").addClass("w-full flex flex-col items-center");
+	    $("ol-viewport ol-touch").addClass("rounded-lg");
+	    $(".clear_features").addClass("mb-3 relative font-medium leading-6 text-blue-300 transition duration-150 ease-out hover:text-white");
+	    $(".clear_features").attr("x-data", "{ hover: false }");
+		$(".clear_features a").text("Clear selection");
+		
+		let a = $("#photo-clear_id").prev();
+		let source = a.attr('href');
+		
+		a.html(`<div id="current_photo" class="rounded-lg w-2/3 flex bg-auto mx-auto" style="padding-top: 66.7%; background-image: url('${source}'); background-size: cover; background-position: center;">`);
+		a.parent().contents().filter(function() {
+			return this.nodeType == 3
+		})[0].textContent = "";
+
+		$("input[type=file]").attr("onchange", "readUpload(this)");
+	});
+</script>
+{% endblock %}

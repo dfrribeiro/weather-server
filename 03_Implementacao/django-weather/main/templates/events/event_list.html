@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}WSM Event List{% endblock %}
+
+{% block content %}
+<div class="w-full px-8 py-16">
+	<div class="max-w-5xl mx-auto">
+		<div class="w-full mt-8 mx-auto overflow-hidden lg:overflow-visible">
+            <h1 class="text-center text-xl font-extrabold tracking-wide">Your Events</h1>
+			<table style="border-spacing: 0px 2em;" class="w-full table table-fixed border-separate overflow-visible space-y-8 text-xs lg:text-sm">
+				<thead>
+					<tr class="text-left bg-gradient-to-r from-green-300 to-blue-300 text-gray-700 break-words overflow-hidden shadow-lg">
+						<th class="w-1/6 rounded-l-lg p-3">Station</th>
+                        <th class="text-right w-1/6 p-3">Measure Type</th>
+                        <th class="text-center w-1/6 p-3">Condition Sign</th>
+                        <th class="w-1/6 p-3">Condition Value</th>
+                        <th class="w-1/6 p-3">Time Range</th>
+                        <th class="text-center w-1/6 rounded-r-lg p-3">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ev in events %}
+					<tr onclick="window.location='{{ ev.get_absolute_url }}';" class="text-left bg-gray-700 overflow-hidden shadow-lg">
+						<td class="rounded-l-lg p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ ev.station_id }}</td>
+                        <td class="text-right p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ ev.get_measure_type_display }}</td>
+						<td class="text-center p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ ev.get_condition_sign_display }}</td>
+                        <td class="p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ ev.condition_value }}</td>
+                        <td class="p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ ev.time_start }} - {{ ev.time_end }}</td>
+						<td class="flex flex-row justify-center rounded-r-lg p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">
+                            <!--<a href="#" class="text-blue-300 transition duration-150 ease-out hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <title>Subscribe</title>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+							</a>-->
+							<a href="{% url 'event-update' pk=ev.pk %}" class="text-blue-300 transition duration-150 ease-out hover:text-white">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <title>Edit</title>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+							</a>
+							<a href="{% url 'event-delete' pk=ev.pk %}" class="text-blue-300 transition duration-150 ease-out hover:text-white">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <title>Delete</title>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+							</a>
+                        </td>
+					</tr>
+					{% endfor %}
+                    <tr class="text-left bg-gray-700 overflow-hidden shadow-lg">
+						<td class="rounded-l-lg p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">
+                            <a href="{% url 'event-add' %}" class="text-green-300 transition duration-150 ease-out hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <title>Add new</title>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </a>
+                        </td>
+                        <td class="p-3"></td>
+						<td class="p-3"></td>
+                        <td class="p-3"></td>
+                        <td class="p-3"></td>
+						<td class="rounded-r-lg p-3">
+                        </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

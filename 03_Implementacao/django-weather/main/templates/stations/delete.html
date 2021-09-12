@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}WSM Delete Station{% endblock %}
+
+{% block content %}
+<form class="flex flex-col align-middle items-center place-items-center justify-center" method="post" style="height:75vh">{% csrf_token %}
+    <p class="h-1/5 text-center text-2xl">Are you sure you want to delete "{{ object }}"?</p>
+    <button type="submit" class="w-1/5 cursor-pointer focus:ring focus:ring-indigo-400 focus:outline-none px-3 py-4 font-medium text-white border border-transparent bg-gradient-to-r from-green-400 to-blue-400 rounded-lg">Confirm</button>
+</form>
+{% endblock %}

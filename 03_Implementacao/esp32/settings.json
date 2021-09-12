@@ -1,0 +1,35 @@
+{
+  "wlan": {
+    "ssid": "MpTo",
+    "password": "vgy79ijn"
+  },
+  "mqtt": {
+    "broker": "cjsg.ddns.net",
+    "port": 1883,
+    "username": "meteo",
+    "password": "iselmeteo",
+    "main_topic": "weather/CAS1",
+    "subscribe": {
+      "sub_topics": []
+    },
+    "publish": {
+      "sub_topics": [
+        {
+          "sensor_name": "bme280",
+          "air_temperature": "tmp",
+          "relative_humidity": "hum",
+          "atmospheric_pressure": "atm"
+        },
+        {
+          "sensor_name": "anemometer",
+          "wind_speed": "ws",
+          "wind_direction": "wd"
+        },
+        {
+          "sensor_name": "pluviometer",
+          "precipitation": "pre"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}WSM Homepage{% endblock %}
+{% block content %}
+<div class="w-full px-8 py-16">
+	<div class="max-w-5xl mx-auto">
+		<div class="w-full mt-8 mx-auto overflow-hidden lg:overflow-visible">
+            <h1 class="text-center text-xl font-extrabold tracking-wide">Stations from around the world</h1>
+			<table style="border-spacing: 0px 2em;" class="w-full table table-fixed border-separate space-y-8 text-xs lg:text-sm">
+				<thead>
+					<tr class="text-left bg-gradient-to-r from-green-300 to-blue-300 text-gray-700 break-words overflow-hidden shadow-lg">
+						<th class="w-1/3 sm:w-1/12 rounded-l-lg p-3">Topic</th>
+						<th class="hidden sm:table-cell w-1/3 p-3">Name</th>
+                        <th class="hidden sm:table-cell w-1/6 p-3">Owner</th>
+						<th class="hidden sm:table-cell w-1/12 p-3">Lat.</th>
+						<th class="hidden sm:table-cell w-1/12 p-3">Long.</th>
+						<th class="w-1/3 sm:w-1/12 rounded-r-lg p-3">Dist. (km)</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for sta in stations %}
+					<tr onclick="window.location='{{ sta.get_absolute_url }}';" class="cursor-pointer hover:ring hover:ring-indigo-400 hover:outline-none text-left bg-gray-700 overflow-hidden shadow-lg">
+						<td class=" rounded-l-lg p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ sta.topic }}</td>
+						<td class="hidden sm:table-cell break-normal p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ sta.name }}</td>
+						<td class="hidden sm:table-cell p-3 overflow-hidden whitespace-nowrap transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ sta.owner.username }}</td>
+                        <td class="hidden sm:table-cell p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ sta.location.coords.1|floatformat:4 }}</td>
+						<td class="hidden sm:table-cell p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ sta.location.coords.0|floatformat:4 }}</td>
+						<td class="rounded-r-lg p-3 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">{{ sta.distance|floatformat:3|default:"??" }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

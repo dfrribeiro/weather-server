@@ -1,0 +1,57 @@
+<section id="header" class="shadow-2xl relative w-full flex flex-col px-8 body-font">
+	<div class="relative flex flex-col items-center w-full pt-4 lg:flex-row">
+		<span class="flex text-justify whitespace-nowrap w-full text-base z-0 justify-center lg:justify-start">
+		{% block auth_info %}
+		{% if user.is_authenticated %}
+		Welcome, {{ user.username }}!&nbsp;
+		<a href="{% url 'logout' %}" class="flex-shrink-0 relative font-medium leading-6 text-green-300 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">
+		<span class="text-center block underline">Logout</span>
+		</a>
+		{% else %}
+		<a href="{% url 'login' %}" class="flex-shrink-0 relative font-medium leading-6 text-green-300 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }">
+		<span class="block underline">Login</span>
+		</a>
+		&nbsp;to add your own weather station.
+		{% endif %}
+		{% endblock %}
+		</span>
+		<span class="flex w-full text-base whitespace-nowrap text-justify justify-center z-1">
+		Your location:&nbsp;<span id="user_location">(??, ??)</span>
+		</span>
+		{% if user.is_authenticated %}
+		<nav class="flex flex-row top-0 z-2 items-center justify-center lg:justify-end w-full h-full space-x-md text-base">
+			<a href="{% url 'home' %}" class="relative font-medium leading-6 text-blue-300 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }"><span class="text-center block underline">Home</span></a>
+			<a href="{% url 'station-list' %}" class="relative font-medium leading-6 text-blue-300 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }"><span class="text-center block underline">Manage Stations</span></a>
+			<a href="{% url 'event-list' %}" class="relative font-medium leading-6 text-blue-300 transition duration-150 ease-out hover:text-white" x-data="{ hover: false }"><span class="block underline">Events</span></a>
+		</nav>
+		{% endif %}
+	</div>
+	<div id="title" class="flex lg:flex-row flex-col justify-center lg:justify-start items-center py-5 w-full">
+		<a href="{% url 'home' %}" class="bg-gradient-to-r from-green-300 to-blue-300 inline-flex rounded-md px-3 relative items-center w-auto text-2xl leading-none select-none"><span class="text-transparent border border-transparent font-extrabold bg-clip-text bg-gray-800 py-3">Weather Station Manager</span></a>
+		<form class="lg:mt-0 mt-4 shadow flex items-stretch lg:ml-auto" action="{% url 'station-search' %}">
+			<input name="query" id="query" class="border-2 border-white z-0 w-full rounded-l text-gray-800 p-2" type="text" placeholder="Search...">
+			<button type="submit" class="z-10 rounded-r bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<title>Search</title>
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+				</svg>
+			</button>
+		</form>
+	</div>
+</section>
+<script type="text/javascript" defer>
+	$(document).ready(function () {
+	    $.ajax({
+	        url: "{% url 'get_user_location' %}",
+	        success: function (response) {
+	            $('#user_location').text(`(${response.lat}, ${response.lon})`);
+	        },
+	        error: function (response) {
+	            // alert the error if any error occured
+	            console.log(response.responseJSON.errors);
+	        }
+	    });
+	
+	    return false;
+	})
+</script>
