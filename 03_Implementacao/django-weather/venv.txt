@@ -1,0 +1,1 @@
+No projeto completo existia nesta localização uma pasta venv configurada com os pacotes Python registados em requirements.txt
